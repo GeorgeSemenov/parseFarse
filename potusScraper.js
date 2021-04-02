@@ -18,8 +18,8 @@ rp(url)//Заставляем парсить по указанному URL
       // wikiUrls.push( ch('b > a', html)[i].attribs.href );
       // wikiNames.push(( ch('b > a', html)[i].texttextContent ));
     }
-    console.log('b > a = ' + (ch('b > a' , html)).text())
-    fs.writeFile('parseResult.txt', (ch('b > a' , html)[30]).text(), function (err) {
+    console.log('b > a [3] = ' + ch('b > a' , html)) 
+    fs.writeFile('parseResult.txt', (ch('b > a' , html)[15]).text, function (err) {
       if (err) return console.log(err);
     });
     //console.log(ch('b > a', html));//выводим спарщенные ссылки с президенатми на экран
