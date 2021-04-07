@@ -53,8 +53,11 @@ rp(url)//Заставляем парсить по указанному URL
                                 результаты массива промисов в свою внутреннюю 
                                 функцию
                               */
+    totalArr = presidents.map(function(president){
+      return '\n' + JSON.stringify(president);
+    })
     console.log(presidents);// выводим массив результатов в консоль
-    fs.writeFile('parseResult.txt', JSON.stringify(presidents), function (err) {// Сохраняем данные в файл
+    fs.writeFile('parseResult.txt', totalArr, function (err) {// Сохраняем данные в файл
       if (err) return console.log(err);//Сохраняем ошибку, если таковая будет
     });
   })
