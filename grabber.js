@@ -12,38 +12,24 @@ const puppeteer = require('puppeteer');//данная Библиотека по�
                                        //пограбить, и выдаст ошибку 503 Service Temporarily Unavailable
 const url = 'https://www.fl.ru/projects/';
 
-// puppeteer
-//   .launch()
-//   .then(function(browser){
-//     return browser.newPage();
-//   })
-//   .then(function(page) {
-//     return page.goto(url).then(function() {//Напоминаю - then обработчик промиссов
-//       return page.content();               //первый его аргумент - функция, которая
-//     });                                    //принимает и обрабатывает успешновыполненный промис       
-//   })                                       //вторая(её тут нет) - неудачновыполненный
-//   .then(function(html) {
-//     $('h2', html).each(function() {
-//       console.log($(this).text());
-//     });
-//     fs.writeFile('grapper.txt', html, function (err) {// Сохраняем данные в файл
-//       if (err) return console.log(err);//Сохраняем ошибку, если таковая будет
-//     });
-//   })
-//   .catch(function(err){
-//     console.log(err);
-//     //handle error
-//   });
-
-
 (async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.goto(url);
   await page.click('.b-combo__arrow');
-  const button = await page.$x("//button[contains(., 'Разработка сайтов')]");
-  await button.click();
+  //Подбробнее о методе поиска тут https://stackoverflow.com/questions/47407791/how-to-click-on-element-with-text-in-puppeteer
+  // const button = await page.$x("//span[contains(., 'Разработка сайтов')]");
+  try{
+    await (page.$x("//span[contains(., 'Разработка сайтов')]")).click;
+    // await button.click();
+  }
+  catch (err){
+    console.log(err);
+    await browser.close();
+  }
+
   
-  await page.pdf({path: __dirname + './page.pdf'});
+  await page.pdf({path: './page.pdf'}); //__dirname - указывает путь в корень твоего проекта
+                                        // ./ - указывает путь к месту, где находится скрипт grabber.js
   await browser.close();
 })();
